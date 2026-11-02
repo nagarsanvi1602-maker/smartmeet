@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartMeet | Contact & Encounter Manager</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#">
+      <span class="brand-icon">S</span>
+      <span>SmartMeet</span>
+    </a>
+    <span id="user-label" class="user-label"></span>
+    <button id="logout-btn" class="btn btn-light hidden">Log out</button>
+  </header>
+
+  <main class="container">
+    <section id="auth-section" class="auth-layout">
+      <div class="intro">
+        <p class="eyebrow">YOUR PERSONAL CONTACT MANAGER</p>
+        <h1>Remember the people who matter.</h1>
+        <p class="muted">
+          Organize your contacts, save meeting notes, and revisit
+          your encounter history from the cloud.
+        </p>
+        <div class="feature-line">✓ Cloud-based contact management</div>
+        <div class="feature-line">✓ Meeting history in one place</div>
+        <div class="feature-line">✓ Secure user sign-in</div>
+      </div>
+
+      <div class="panel auth-panel">
+        <h2 id="auth-heading">Welcome back</h2>
+        <p id="auth-subtitle" class="muted">Log in to your SmartMeet account.</p>
+
+        <form id="auth-form">
+          <div id="name-field" class="field hidden">
+            <label for="auth-name">Full name</label>
+            <input id="auth-name" type="text" autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="auth-email">Email address</label>
+            <input id="auth-email" type="email" required
+              autocomplete="email" placeholder="you@example.com" />
+          </div>
+          <div class="field">
+            <label for="auth-password">Password</label>
+            <input id="auth-password" type="password" required
+              minlength="6" autocomplete="current-password"
+              placeholder="At least 6 characters" />
+          </div>
+          <button id="auth-submit" class="btn btn-primary full-width">
+            Log in
+          </button>
+        </form>
+
+        <p class="switch-text">
+          <span id="switch-label">New to SmartMeet?</span>
+          <button id="switch-auth" class="text-button">Create account</button>
+        </p>
+        <p id="auth-message" class="message" role="status"></p>
+      </div>
+    </section>
+
+    <section id="app-section" class="hidden">
+      <div class="page-heading">
+        <div>
+          <p class="eyebrow">YOUR WORKSPACE</p>
+          <h1>Dashboard</h1>
+          <p class="muted">Your contacts and meeting history, organized.</p>
+        </div>
+        <span class="cloud-badge">☁ Connected to Firebase</span>
+      </div>
+
+      <div class="stats-grid">
+        <article class="stat-card">
+          <span class="stat-label">Total contacts</span>
+          <strong id="contact-count">0</strong>
+          <span class="muted small">Saved profiles</span>
+        </article>
+        <article class="stat-card">
+          <span class="stat-label">Total encounters</span>
+          <strong id="encounter-count">0</strong>
+          <span class="muted small">Recorded meetings</span>
+        </article>
+      </div>
+
+      <div class="content-grid">
+        <section class="panel">
+          <div class="section-heading">
+            <div>
+              <h2 id="contact-form-title">Add a contact</h2>
+              <p class="muted small">Save details about someone you have met.</p>
+            </div>
+          </div>
+
+          <form id="contact-form">
+            <input id="contact-id" type="hidden" />
+            <div class="field">
+              <label for="contact-name">Full name *</label>
+              <input id="contact-name" required maxlength="100"
+                placeholder="Enter contact name" />
+            </div>
+            <div class="field">
+              <label for="contact-organization">Organization</label>
+              <input id="contact-organization" maxlength="100"
+                placeholder="College, company, etc." />
+            </div>
+            <div class="field">
+              <label for="contact-email">Email (optional)</label>
+              <input id="contact-email" type="email"
+                placeholder="contact@example.com" />
+            </div>
+            <div class="field">
+              <label for="contact-notes">Notes</label>
+              <textarea id="contact-notes" rows="3" maxlength="2000"
+                placeholder="Details you want to remember"></textarea>
+            </div>
+            <div class="button-row">
+              <button id="save-contact-btn" class="btn btn-primary" type="submit">
+                Save contact
+              </button>
+              <button id="cancel-edit-btn" class="btn btn-light hidden"
+                type="button">Cancel edit</button>
+            </div>
+            <p id="contact-message" class="message" role="status"></p>
+          </form>
+        </section>
+
+        <section class="panel">
+          <div class="section-heading">
+            <div>
+              <h2>Your contacts</h2>
+              <p class="muted small">Search and manage saved profiles.</p>
+            </div>
+          </div>
+          <div class="field">
+            <label for="contact-search">Search contacts</label>
+            <input id="contact-search" type="search"
+              placeholder="Search by name or organization" />
+          </div>
+          <div id="contacts-list" class="contacts-list">
+            <p class="muted">Log in to load your contacts.</p>
+          </div>
+        </section>
+      </div>
+
+      <section class="panel encounter-panel">
+        <div class="section-heading">
+          <div>
+            <h2>Record an encounter</h2>
+            <p class="muted small">Record a meeting with one of your contacts.</p>
+          </div>
+        </div>
+
+        <form id="encounter-form" class="encounter-grid">
+          <div class="field">
+            <label for="encounter-contact">Contact *</label>
+            <select id="encounter-contact" required>
+              <option value="">Select a contact</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="encounter-date">Date *</label>
+            <input id="encounter-date" type="date" required />
+          </div>
+          <div class="field">
+            <label for="encounter-time">Time *</label>
+            <input id="encounter-time" type="time" required />
+          </div>
+          <div class="field">
+            <label for="encounter-location">Location (optional)</label>
+            <input id="encounter-location" maxlength="200"
+              placeholder="e.g. College library" />
+          </div>
+          <div class="field span-all">
+            <label for="encounter-notes">Meeting notes (optional)</label>
+            <textarea id="encounter-notes" rows="2" maxlength="2000"
+              placeholder="What would you like to remember?"></textarea>
+          </div>
+          <div class="span-all">
+            <button class="btn btn-primary" type="submit">Save encounter</button>
+            <p id="encounter-message" class="message" role="status"></p>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel history-panel">
+        <div class="section-heading">
+          <div>
+            <h2>Recent encounters</h2>
+            <p class="muted small">Your latest recorded meetings.</p>
+          </div>
+        </div>
+        <div id="encounters-list">
+          <p class="muted">No encounters recorded yet.</p>
+        </div>
+      </section>
+
+      <footer class="footer">
+        SmartMeet · Cloud Fundamentals Project ·
+        <span>Face recognition is not included in this prototype.</span>
+      </footer>
+    </section>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
